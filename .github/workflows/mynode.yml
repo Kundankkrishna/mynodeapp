@@ -1,5 +1,5 @@
 name: mynodeappworkflow
-'on': push
+on: push
 jobs:
   job1:
     runs-on: ubuntu
