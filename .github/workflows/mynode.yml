@@ -1,0 +1,8 @@
+name: mynodeappworkflow
+'on': push
+jobs:
+  job1:
+    runs-on: ubuntu
+    steps:
+      - name: step1
+        run: echo "workflow started"
