@@ -1,0 +1,3 @@
+apps:
+- name: MyNodeApp
+  memory: 128M
