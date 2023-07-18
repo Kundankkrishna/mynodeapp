@@ -2,7 +2,7 @@ name: mynodeappworkflow
 on: push
 jobs:
   job1:
-    runs-on: ubuntu
+    runs-on: ubuntu-latestt
     steps:
       - name: step1
         run: echo "workflow started"
