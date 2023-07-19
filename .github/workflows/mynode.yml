@@ -22,17 +22,17 @@ jobs:
 
     # Build the Docker image
     - name: Build with Docker
-      run:
-        docker build . -t "$TAGGED_IMAGE"
+      run: |
+        docker build -t "$TAGGED_IMAGE"
   
     # Push the image to dockerhub repository
     - name: Push the image to Dockerhub repository
-      run:
+      run: |
         docker push "$IMAGE_ADDRESS"
 
     # Deploy the Docker image to the cluster
     - name: Deploy to cluster
-      run:
+      run: |
         kubectl config current-context
         kubectl create deployment "$DEPLOYMENT_NAME" --image="$IMAGE_ADDRESS" -o yaml > deployment.yaml
         kubectl apply -f deployment.yaml
