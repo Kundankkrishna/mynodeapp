@@ -1,15 +1,58 @@
-name: mynodeappworkflow
-on: push
-env:
-  TAG: "latest"
-  REPONAME : "kundankkkrishna"
-  REGISTRY_HOSTNAME : "docker.io"
-  IMAGE_NAME : "finalapp"
-  CLUSTER : "minikube"
-  DEPLOYMENT_NAME : "NodeappActionsDeployment"
-  PORT : 5001
-  IMAGE_ADDRESS : "$REGISTRY_HOSTNAME/$REPONAME/$IMAGE_NAME:$TAG "
-  TAGGED_IMAGE : "$REPONAME/$IMAGE_NAME:$TAG"
+# name: mynodeappworkflow
+# on: push
+# env:
+#   TAG: "latest"
+#   REPONAME : "kundankkkrishna"
+#   REGISTRY_HOSTNAME : "docker.io"
+#   IMAGE_NAME : "finalapp"
+#   CLUSTER : "minikube"
+#   DEPLOYMENT_NAME : "NodeappActionsDeployment"
+#   PORT : 5001
+#   IMAGE_ADDRESS : "$REGISTRY_HOSTNAME/$REPONAME/$IMAGE_NAME:$TAG "
+#   TAGGED_IMAGE : "$REPONAME/$IMAGE_NAME:$TAG"
+# jobs:
+#   Deploymentjob:
+#     name: Deployment
+#     runs-on: self-hosted
+#     environment: demo
+#     steps:
+
+#     - name: Checkout
+#       uses: actions/checkout@v3
+
+#     # Build the Docker image
+# #     - name: Build with Docker
+# #       run: |
+# #         echo $TAGGED_IMAGE
+# #         docker build -t $TAGGED_IMAGE
+  
+#     # Push the image to dockerhub repository
+# #     - name: Push the image to Dockerhub repository
+# #       run: |
+# #         docker push $IMAGE_ADDRESS
+
+#     # Deploy the Docker image to the cluster
+#     - name: Deploy to cluster
+#       run: |
+#         kubectl create deployment "$DEPLOYMENT_NAME" --image=$IMAGE_ADDRESS -o 'yaml'> deployment.yaml
+#         kubectl apply -f deployment.yaml
+#         kubectl rollout status deployment/$DEPLOYMENT_NAME
+#         kubectl create service loadbalancer $DEPLOYMENT_NAME --tcp=80:$PORT -o 'yaml'> service.yaml
+#         kubectl apply -f service.yaml
+#         kubectl get services -o wide
+
+
+name: mynodeappworkflow using github actions
+on: [push]
+# env:
+#   TAG: latest
+#   REPONAME: kundankkkrishna
+#   REGISTRY_HOSTNAME: docker.io
+#   IMAGE_NAME: newapp
+#   CLUSTER: minikube
+#   DEPLOYMENT_NAME: NodeappActionsDeployment
+#   PORT: 5001
+
 jobs:
   Deploymentjob:
     name: Deployment
@@ -19,25 +62,21 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v3
-
-    # Build the Docker image
-#     - name: Build with Docker
-#       run: |
-#         echo $TAGGED_IMAGE
-#         docker build -t $TAGGED_IMAGE
-  
-    # Push the image to dockerhub repository
-#     - name: Push the image to Dockerhub repository
-#       run: |
-#         docker push $IMAGE_ADDRESS
-
-    # Deploy the Docker image to the cluster
-    - name: Deploy to cluster
+    - name: Start minikube
+      uses: medyagh/setup-minikube@master
+    - name: Try the cluster !
+      run: kubectl get pods -A
+    - name: Build image
       run: |
-        kubectl config current-context
-        kubectl create deployment "$DEPLOYMENT_NAME" --image=$IMAGE_ADDRESS -o yaml > deployment.yaml
-        kubectl apply -f deployment.yaml
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl create service loadbalancer $DEPLOYMENT_NAME --tcp=80:$PORT -o yaml > service.yaml
-        kubectl apply -f service.yaml
-        kubectl get services -o wide
+          export SHELL=/bin/bash
+          eval $(minikube -p minikube docker-env)
+          docker build -f ./Dockerfile -t docker.io/kundankkrishna/nodeapp:latest .
+          echo -n "verifying images:"
+          docker images         
+    - name: Deploy to minikube
+      run:
+        kubectl apply -f k8s-node-app.yaml
+    - name: Test service URLs
+      run: |
+          minikube service list
+          minikube service nodejs-app --url
