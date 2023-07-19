@@ -1,10 +1,10 @@
 name: mynodeappworkflow
 on: push
 env:
-  TAG: ${{ github.sha }}
+  TAG: latest
   NAMESPACE: kundankkkrishna
   REGISTRY_HOSTNAME: docker.io
-  IMAGE_NAME: newapp
+  IMAGE_NAME: finalapp
   CLUSTER: minikube
   DEPLOYMENT_NAME: NodeappActionsDeployment
   PORT: 5001
@@ -22,14 +22,14 @@ jobs:
       uses: actions/checkout@v3
 
     # Build the Docker image
-    - name: Build with Docker
-      run:
-        docker build -f ./Dockerfile -t $TAGGED_IMAGE
+#     - name: Build with Docker
+#       run:
+#         docker build -f ./Dockerfile -t $TAGGED_IMAGE
   
     # Push the image to dockerhub repository
-    - name: Push the image to Dockerhub repository
-      run:
-        docker push $IMAGE_ADDRESS
+#     - name: Push the image to Dockerhub repository
+#       run:
+#         docker push $IMAGE_ADDRESS
 
     # Deploy the Docker image to the cluster
     - name: Deploy to cluster
