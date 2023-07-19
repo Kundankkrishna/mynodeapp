@@ -8,9 +8,8 @@ env:
   CLUSTER: minikube
   DEPLOYMENT_NAME: NodeappActionsDeployment
   PORT: 5001
-  IMAGE_ADDRESS: $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME :$TAG
-  TAGGED_IMAGE: $IMAGE_NAME :$TAG
-
+  IMAGE_ADDRESS: "{ $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME: $TAG }"
+  TAGGED_IMAGE: "{ $IMAGE_NAME: $TAG }"
 jobs:
   Deploymentjob:
     name: Deployment
@@ -22,22 +21,22 @@ jobs:
       uses: actions/checkout@v3
 
     # Build the Docker image
-#     - name: Build with Docker
-#       run:
-#         docker build -f ./Dockerfile -t $TAGGED_IMAGE
+    - name: Build with Docker
+      run:
+        docker build -f ./Dockerfile -t "$TAGGED_IMAGE"
   
     # Push the image to dockerhub repository
-#     - name: Push the image to Dockerhub repository
-#       run:
-#         docker push $IMAGE_ADDRESS
+    - name: Push the image to Dockerhub repository
+      run:
+        docker push "$IMAGE_ADDRESS"
 
     # Deploy the Docker image to the cluster
     - name: Deploy to cluster
       run:
         kubectl config current-context
-        kubectl create deployment $DEPLOYMENT_NAME --image= $IMAGE_ADDRESS -o yaml > deployment.yaml
+        kubectl create deployment "$DEPLOYMENT_NAME" --image= "$IMAGE_ADDRESS" -o yaml > deployment.yaml
         kubectl apply -f deployment.yaml
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl create service loadbalancer $DEPLOYMENT_NAME --tcp=80 -o yaml > service.yaml
+        kubectl rollout status deployment/"$DEPLOYMENT_NAME"
+        kubectl create service loadbalancer "$DEPLOYMENT_NAME' --tcp=80 -o yaml > service.yaml
         kubectl apply -f service.yaml
         kubectl get services -o wide
