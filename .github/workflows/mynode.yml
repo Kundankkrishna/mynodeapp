@@ -22,18 +22,18 @@ jobs:
     # Build the Docker image
     - name: Build with Docker
       run: |
-        docker build . -t $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME:${ TAG }
+        docker build . -t $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME :${ TAG }
   
     # Push the image to dockerhub repository
     - name: Push the image to Dockerhub repository
       run: |
-        docker push $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME:${ TAG }
+        docker push $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME :${ TAG }
 
     # Deploy the Docker image to the cluster
     - name: Deploy to cluster
       run: |
         kubectl config current-context
-        kubectl create deployment $DEPLOYMENT_NAME --image= $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME:${ TAG } -o yaml > deployment.yaml
+        kubectl create deployment $DEPLOYMENT_NAME --image= $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME :${ TAG } -o yaml > deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl create service loadbalancer $DEPLOYMENT_NAME --tcp=80:$PORT --dry-run -o yaml > service.yaml
