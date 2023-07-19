@@ -44,14 +44,14 @@
 
 name: mynodeappworkflow using github actions
 on: [push]
-# env:
-#   TAG: latest
-#   REPONAME: kundankkkrishna
-#   REGISTRY_HOSTNAME: docker.io
-#   IMAGE_NAME: newapp
-#   CLUSTER: minikube
-#   DEPLOYMENT_NAME: NodeappActionsDeployment
-#   PORT: 5001
+env:
+  TAG: latest
+  REPONAME: kundankkkrishna
+  REGISTRY_HOSTNAME: docker.io
+  IMAGE_NAME: newapp
+  CLUSTER: minikube
+  DEPLOYMENT_NAME: NodeappActionsDeployment
+  PORT: 5001
 
 jobs:
   Deploymentjob:
