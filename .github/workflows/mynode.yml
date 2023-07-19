@@ -10,7 +10,7 @@ env:
   PORT: 5001
 
 jobs:
-  setup-build-publish-deploy:
+  Deploymentjob:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
