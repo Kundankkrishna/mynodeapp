@@ -9,7 +9,7 @@ env:
   DEPLOYMENT_NAME : NodeappActionsDeployment
   PORT : 5001
   IMAGE_ADDRESS : "$REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME:$TAG "
-  TAGGED_IMAGE : "$IMAGE_NAME:$TAG"
+  TAGGED_IMAGE : "$NAMESPACE/$IMAGE_NAME:$TAG"
 jobs:
   Deploymentjob:
     name: Deployment
