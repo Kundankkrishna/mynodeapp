@@ -2,14 +2,14 @@ name: mynodeappworkflow
 on: push
 env:
   TAG: latest
-  NAMESPACE: kundankkkrishna
-  REGISTRY_HOSTNAME: docker.io
-  IMAGE_NAME: finalapp
-  CLUSTER: minikube
-  DEPLOYMENT_NAME: NodeappActionsDeployment
-  PORT: 5001
-  IMAGE_ADDRESS: "{ $REGISTRY_HOSTNAME/$NAMESPACE/$IMAGE_NAME: $TAG }"
-  TAGGED_IMAGE: "{ $IMAGE_NAME: $TAG }"
+  NAMESPACE : kundankkkrishna
+  REGISTRY_HOSTNAME : docker.io
+  IMAGE_NAME : finalapp
+  CLUSTER : minikube
+  DEPLOYMENT_NAME : NodeappActionsDeployment
+  PORT : 5001
+  IMAGE_ADDRESS : "$REGISTRY_HOSTNAME\/$NAMESPACE\/$IMAGE_NAME:$TAG "
+  TAGGED_IMAGE : "$IMAGE_NAME:$TAG"
 jobs:
   Deploymentjob:
     name: Deployment
@@ -23,7 +23,7 @@ jobs:
     # Build the Docker image
     - name: Build with Docker
       run:
-        docker build -f ./Dockerfile -t "$TAGGED_IMAGE"
+        docker build . -t "$TAGGED_IMAGE"
   
     # Push the image to dockerhub repository
     - name: Push the image to Dockerhub repository
@@ -34,9 +34,9 @@ jobs:
     - name: Deploy to cluster
       run:
         kubectl config current-context
-        kubectl create deployment "$DEPLOYMENT_NAME" --image= "$IMAGE_ADDRESS" -o yaml > deployment.yaml
+        kubectl create deployment "$DEPLOYMENT_NAME" --image="$IMAGE_ADDRESS" -o yaml > deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl rollout status deployment/"$DEPLOYMENT_NAME"
-        kubectl create service loadbalancer "$DEPLOYMENT_NAME' --tcp=80 -o yaml > service.yaml
+        kubectl create service loadbalancer "$DEPLOYMENT_NAME' --tcp=80:$PORT -o yaml > service.yaml
         kubectl apply -f service.yaml
         kubectl get services -o wide
