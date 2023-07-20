@@ -59,15 +59,12 @@ jobs:
     runs-on: self-hosted
     environment: demo
     steps:
-
     - name: Checkout
       uses: actions/checkout@v3
-#     - name: Try the cluster !
-#       run: kubectl get pods -A
     - name: Build image
       run: |
           eval $(minikube -p minikube docker-env)
-          docker build -f ./Dockerfile -t docker.io/kundankkrishna/nodeapp:latest .
+          docker build -f ./Dockerfile -t docker.io/kundankkrishna/nodeapp:latest
           echo -n "verifying images:"
           docker images         
     - name: Deploy to minikube
