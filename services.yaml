@@ -12,6 +12,24 @@ spec:
   selector:
     app: myapp
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: mypod
+spec:
+  containers:
+    - image: docker.io/kundankkkrishna/newapp:latest
+      name: finalapp
+      ports:
+        - containerPort: 8081
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+---
 
 apiVersion: apps/v1
 kind: Deployment
@@ -28,7 +46,7 @@ spec:
     spec:
       containers:
         - name: container1
-          image: docker.io/kundankkkrishna/finalapp:latest
+          image: docker.io/kundankkkrishna/newapp:latest
           resources:
             limits:
               cpu: 100m
