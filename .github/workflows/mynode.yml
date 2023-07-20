@@ -20,10 +20,10 @@ jobs:
         docker images        
     - name: Deploy to minikube
       run:
-        kubectl apply -f services.yaml
+        kubectl apply -f kube
     - name: Test service URLs
       run: |
         minikube service list
-        minikube service myservice --url
+        minikube service mynewservice --url
         echo "------------------opening the service------------------"
         curl $(minikube service myservice --url)
