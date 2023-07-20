@@ -1,2 +1,2 @@
 # mynodeapp
-this app is for learning th edevops process
+this app is for learning the devops process
