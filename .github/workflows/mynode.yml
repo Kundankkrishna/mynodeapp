@@ -1,13 +1,5 @@
 name: mynodeappworkflow using github actions
 on: push
-# env:
-#   TAG: latest
-#   REPONAME: kundankkkrishna
-#   REGISTRY_HOSTNAME: docker.io
-#   IMAGE_NAME: newapp
-#   CLUSTER: minikube
-#   DEPLOYMENT_NAME: NodeappActionsDeployment
-#   PORT: 5001
 
 jobs:
   Deploymentjob:
@@ -23,12 +15,12 @@ jobs:
       run: |
         export SHELL=/bin/bash
         eval $(minikube -p minikube docker-env)
-        docker build -f ./Dockerfile -t local/example .
+        docker build -f ./Dockerfile -t kundankkrishna/newapp:latest .
         echo -n "verifying images:"
         docker images        
     - name: Deploy to minikube
       run:
-        kubectl apply -f deploy-to-minikube.yaml
+        kubectl apply -f services.yaml
     - name: Test service URLs
       run: |
         minikube service list
