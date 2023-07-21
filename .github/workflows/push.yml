@@ -61,13 +61,13 @@ jobs:
       - name: Deploy to remote server via SSH
         uses: appleboy/ssh-action@master
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
           host: 65.0.184.214
           username: ubuntu
           port: 22
           script: |
-            echo "$SSH_PRIVATE_KEY" > deploy_key
+            echo "$SSH_KEY" > deploy_key
             chmod 600 deploy_key
             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@65.0.184.214 -p 22 "docker pull kundankkkrishna/finalapp:latest && \
             docker stop nodeappcontainer || true \
