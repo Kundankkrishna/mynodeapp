@@ -4,8 +4,8 @@ metadata:
  name: mypod
 spec:
   containers:
-    - image: local/NodeApp:latest
-      name: NodeApp
+    - image: docker.io/kundankkkrishna/nodeapp:latest
+      name: nodeapp
       ports:
         - containerPort: 8081
       resources:
@@ -20,21 +20,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: NodeApp
+    name: nodeapp
 spec:
     selector:
         matchLabels:
-            app: NodeApp
+            app: nodeapp
     replicas: 2
     template:
         metadata:
             labels:
-                app: NodeApp
+                app: nodeapp
         spec:
             containers:
                 - name: NodeAppContainer
                   imagePullPolicy: Never
-                  image: local/NodeApp:latest
+                  image: docker.io/kundankkkrishna/nodeapp:latest
                   resources:
                       limits:
                           cpu: 50m
@@ -51,11 +51,11 @@ kind: Service
 metadata:
   name: NodeService
   labels:
-    app: NodeApp
+    app: nodeapp
 spec:
   type: LoadBalancer
   ports:
     - port: 8081
       targetPort: 8081
   selector:
-    app: NodeApp
+    app: nodeapp
