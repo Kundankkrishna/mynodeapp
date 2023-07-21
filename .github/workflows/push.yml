@@ -78,6 +78,9 @@ jobs:
     steps:
       - name: Install SSH client
         run: sudo apt-get install -qq openssh-client
+        
+      - name: Set up SSH key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to EC2 instance via SSH
         env:
@@ -86,21 +89,19 @@ jobs:
         run: |
           # Install AWS CLI (if necessary)
           #sudo apt-get install -qq awscli
-
-          # Copy the private key to a file and set appropriate permissions
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          
 
           # SSH into the EC2 instance and run Docker commands
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@65.0.184.214 -p 22 '
-            # Pull the latest image from Docker Hub
-            docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-            docker pull kundankkkrishna/finalapp:latest
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@65.0.184.214 << 'EOF'
+          
+          # Pull the latest image from Docker Hub
+          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+          docker pull kundankkkrishna/finalapp:latest
 
-            # Stop and remove the existing container
-            docker stop appcontainer || true
-            docker rm appcontainer || true
+          # Stop and remove the existing container
+          docker stop appcontainer || true
+          docker rm appcontainer || true
 
-            # Run the new container
-            docker run -d --name appcontainer -p 80:80 kundankkkrishna/finalapp:latest
-            '
+          # Run the new container
+          docker run -d --name appcontainer -p 80:80 kundankkkrishna/finalapp:latest
+          '
