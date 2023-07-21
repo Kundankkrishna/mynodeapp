@@ -13,7 +13,10 @@ jobs:
       - name: Check cluster
         run: kubectl get pods -A
       - name: Build image
-        run: docker build . -t nodeapp:latest
+        run: |
+          export SHELL=/bin/bash
+          eval $(minikube -p minikube docker-env)
+          docker build ../Dockerfile -t nodeapp:latest
       - name: Push the image
         run: docker push nodeapp:latest
       - name: Deploy to cluster
