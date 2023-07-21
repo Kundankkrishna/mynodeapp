@@ -10,7 +10,7 @@ COPY packag*.json ./
 RUN npm install
 
 # copying all the files from the host to the container
-COPY . ./
+COPY . .
 
 # exposing the port for traffic
 EXPOSE 8081
