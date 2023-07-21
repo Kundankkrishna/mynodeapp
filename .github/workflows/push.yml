@@ -28,7 +28,7 @@
 #         echo "------------------opening the service------------------"
 #         curl $(minikube service myservice --url)
 
-name: CI
+name: Build and Deploy the application
 on:
   - push
 jobs:
@@ -42,3 +42,13 @@ jobs:
       # now you can run kubectl to see the pods in the cluster
       - name: kubectl
         run: kubectl get pods -A
+      - name: Buil image
+        run: docker build ./Dockerfile -t kundankkkrishna/NodeApp:latest
+      - name: Deploy to cluster
+        run: kubectl apply -f kube
+      - name: Accessing the service
+        run: |
+            minikube service list
+            minikube service NodeService --url
+            echo "launching the service"
+            curl $(minikube service NodeService --url )
