@@ -20,7 +20,7 @@ jobs:
 #       - name: Push the image
 #         run: docker push nodeapp:latest
       - name: Deploy to cluster
-        run: kubectl apply -f kube
+        run: kubectl apply -f deployment.yaml
       - name: Accessing the service
         run: |
             minikube service list
