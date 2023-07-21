@@ -1,0 +1,57 @@
+name: Docker Build and Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy to remote server via SSH
+#         uses: appleboy/ssh-action@master
+#         env:
+#           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#         with:
+#           host: 65.0.184.214
+#           username: ubuntu
+#           port: 22
+#           script: |
+#             echo "$SSH_KEY" > deploy_key
+#             chmod 400 deploy_key
+#             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@65.0.184.214 -p 22 "docker pull kundankkkrishna/finalapp:latest && \
+#             docker stop nodeappcontainer || true \
+#             docker rm nodeappcontainer || true \
+#             docker run -d --name nodeappcontainer -p 80:80 kundankkkrishna/finalapp:latest"
+
+
+    steps:
+      - name: Install SSH client
+        run: sudo apt-get install -qq openssh-client
+
+      - name: Set up SSH key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
+      - name: Deploy to EC2 instance via SSH
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        run: |
+          # Install AWS CLI (if necessary)
+          #sudo apt-get install -qq awscli
+
+
+          # SSH into the EC2 instance and run Docker commands
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@65.0.184.214 << 'EOF'
+
+          # Pull the latest image from Docker Hub
+          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+          docker pull kundankkkrishna/finalapp:latest
+
+          # Stop and remove the existing container
+          docker stop appcontainer || true
+          docker rm appcontainer || true
+
+          # Run the new container
+          docker run -d --name appcontainer -p 80:80 kundankkkrishna/finalapp:latest
+          '
