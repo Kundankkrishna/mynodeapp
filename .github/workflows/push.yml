@@ -13,7 +13,7 @@ jobs:
       - name: kubectl
         run: kubectl get pods -A
       - name: Buil image
-        run: docker build ./Dockerfile -t docker.io/kundankkkrishna/nodeapp:latest
+        run: docker build . -t docker.io/kundankkkrishna/nodeapp:latest
       - name: Deploy to cluster
         run: kubectl apply -f kube
       - name: Accessing the service
