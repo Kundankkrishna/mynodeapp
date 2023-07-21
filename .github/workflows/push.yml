@@ -67,7 +67,7 @@ jobs:
           username: ubuntu
           port: 22
           script: |
-            echo "${SSH_PRIVATE_KEY}" > deploy_key
+            echo "${ env.SSH_PRIVATE_KEY }" > deploy_key
             chmod 600 deploy_key
             ssh -o StrictHostKeyChecking=no -i $(cat deploy_key) ubuntu@65.0.184.214 -p 22 "docker pull kundankkkrishna/finalapp:latest && \
             docker stop nodeappcontainer || true \
