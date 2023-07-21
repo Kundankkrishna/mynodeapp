@@ -16,7 +16,7 @@ jobs:
         run: |
           export SHELL=/bin/bash
           eval $(minikube -p minikube docker-env)
-          docker build ../Dockerfile -t nodeapp:latest
+          docker build -f ./Dockerfile -t nodeapp:latest
       - name: Push the image
         run: docker push nodeapp:latest
       - name: Deploy to cluster
