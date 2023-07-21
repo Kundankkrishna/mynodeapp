@@ -10,10 +10,10 @@ jobs:
         id: minikube
         uses: medyagh/setup-minikube@latest
       # now you can run kubectl to see the pods in the cluster
-      - name: kubectl
+      - name: Check cluster
         run: kubectl get pods -A
       - name: Build image
-        run: docker build -f ./Dockerfile -t kundankkkrishna/nodeapp:latest
+        run: docker buildx build -f $(pwd)/Dockerfile -t kundankkkrishna/nodeapp:latest
       - name: Push the image
         run: docker push kundankkkrishna/nodeapp:latest
       - name: Deploy to cluster
