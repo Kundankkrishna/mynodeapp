@@ -34,7 +34,7 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    name: job1
+    name: setup and deploy
     steps:
       - name: start minikube
         id: minikube
