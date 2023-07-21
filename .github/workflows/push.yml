@@ -53,3 +53,24 @@ jobs:
           context: .
           push: true
           tags: kundankkkrishna/finalapp:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # - name: Install SSH client
+      #   run: sudo apt-get install -qq openssh-client
+
+      - name: Deploy to remote server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 65.0.184.214
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker pull kundankkkrishna/finalapp:latest
+            docker stop nodeappcontainer || true
+            docker rm nodeappcontainer || true
+            docker run -d --name nodeappcontainer -p 80:80 kundankkkrishna/finalapp:latest
