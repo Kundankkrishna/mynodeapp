@@ -68,7 +68,7 @@ jobs:
           port: 22
           script: |
             echo "$SSH_KEY" > deploy_key
-            chmod 600 deploy_key
+            chmod 400 deploy_key
             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@65.0.184.214 -p 22 "docker pull kundankkkrishna/finalapp:latest && \
             docker stop nodeappcontainer || true \
             docker rm nodeappcontainer || true \
