@@ -12,8 +12,10 @@ jobs:
       # now you can run kubectl to see the pods in the cluster
       - name: kubectl
         run: kubectl get pods -A
-      - name: Buil image
-        run: docker build . -t docker.io/kundankkkrishna/nodeapp:latest
+      - name: Build image
+        run: docker build -f ./Dockerfile -t kundankkkrishna/nodeapp:latest
+      - name: Push the image
+        run: docker push kundankkkrishna/nodeapp:latest
       - name: Deploy to cluster
         run: kubectl apply -f kube
       - name: Accessing the service
