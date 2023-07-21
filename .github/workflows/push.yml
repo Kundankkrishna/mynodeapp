@@ -1,29 +1,55 @@
-name: Build and Deploy the application
+# name: Build and Deploy the application
+# on:
+#   - push
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     name: setup and deploy
+#     steps:
+#       - name: start minikube
+#         id: minikube
+#         uses: medyagh/setup-minikube@latest
+#       # now you can run kubectl to see the pods in the cluster
+#       - name: Check cluster
+#         run: kubectl get pods -A
+#       - name: Build image
+#         run: |
+#           export SHELL=/bin/bash
+#           eval $(minikube -p minikube docker-env)
+#           docker build -t nodeapp:latest .
+#       - name: Push the image
+#         run: docker push nodeapp:latest
+#       - name: Deploy to cluster
+#         run: kubectl apply -f ./deployment.yaml
+#       - name: Accessing the service
+#         run: |
+#             minikube service list
+#             minikube service nodeservice --url
+#             echo "launching the service"
+#             curl $(minikube service nodeservice --url )
+
+name: Docker Build and Deploy
 on:
-  - push
+  push:
+    branches:
+      - main
+
 jobs:
-  job1:
+  build:
     runs-on: ubuntu-latest
-    name: setup and deploy
     steps:
-      - name: start minikube
-        id: minikube
-        uses: medyagh/setup-minikube@latest
-      # now you can run kubectl to see the pods in the cluster
-      - name: Check cluster
-        run: kubectl get pods -A
-      - name: Build image
-        run: |
-          export SHELL=/bin/bash
-          eval $(minikube -p minikube docker-env)
-          docker build -t nodeapp:latest .
-      - name: Push the image
-        run: docker push nodeapp:latest
-      - name: Deploy to cluster
-        run: kubectl apply -f ./deployment.yaml
-      - name: Accessing the service
-        run: |
-            minikube service list
-            minikube service nodeservice --url
-            echo "launching the service"
-            curl $(minikube service nodeservice --url )
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: kundankkkrishna/finalapp:latest
