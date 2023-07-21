@@ -43,12 +43,12 @@ jobs:
       - name: kubectl
         run: kubectl get pods -A
       - name: Buil image
-        run: docker build ./Dockerfile -t kundankkkrishna/NodeApp:latest
+        run: docker build ./Dockerfile -t docker.io/kundankkkrishna/nodeapp:latest
       - name: Deploy to cluster
         run: kubectl apply -f kube
       - name: Accessing the service
         run: |
             minikube service list
-            minikube service NodeService --url
+            minikube service nodeservice --url
             echo "launching the service"
-            curl $(minikube service NodeService --url )
+            curl $(minikube service nodeservice --url )
