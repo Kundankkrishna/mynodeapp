@@ -1,29 +1,44 @@
-name: mynodeappworkflow using github actions
-on: push
+# name: mynodeappworkflow using github actions
+# on: push
 
+# jobs:
+#   Deploymentjob:
+#     runs-on: ubuntu-latest
+#     name: build example and deploy to minikube
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Start minikube
+#       uses: medyagh/setup-minikube@master
+#     - name: Try the cluster !
+#       run: kubectl get pods -A
+#     - name: Build image
+#       run: |
+#         export SHELL=/bin/bash
+#         eval $(minikube -p minikube docker-env)
+#         docker build . -t kundankkkrishna/newapp:latest
+#         echo -n "verifying images:"
+#         docker images        
+#     - name: Deploy to minikube
+#       run:
+#         kubectl apply -f kube
+#     - name: Test service URLs
+#       run: |
+#         minikube service list
+#         minikube service mynewservice --url
+#         echo "------------------opening the service------------------"
+#         curl $(minikube service myservice --url)
+
+name: CI
+on:
+  - push
 jobs:
-  Deploymentjob:
+  job1:
     runs-on: ubuntu-latest
-    name: build example and deploy to minikube
+    name: job1
     steps:
-    - uses: actions/checkout@v2
-    - name: Start minikube
-      uses: medyagh/setup-minikube@master
-    - name: Try the cluster !
-      run: kubectl get pods -A
-    - name: Build image
-      run: |
-        export SHELL=/bin/bash
-        eval $(minikube -p minikube docker-env)
-        docker build . -t kundankkkrishna/newapp:latest
-        echo -n "verifying images:"
-        docker images        
-    - name: Deploy to minikube
-      run:
-        kubectl apply -f kube
-    - name: Test service URLs
-      run: |
-        minikube service list
-        minikube service mynewservice --url
-        echo "------------------opening the service------------------"
-        curl $(minikube service myservice --url)
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@latest
+      # now you can run kubectl to see the pods in the cluster
+      - name: kubectl
+        run: kubectl get pods -A
