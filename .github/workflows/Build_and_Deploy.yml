@@ -45,11 +45,26 @@ jobs:
   
       - name: Set up SSH key
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-  
-      - name: Deploy to server
+
+# this part can be used to deploy on the server using docker
+#       - name: Deploy to server
+#         run: |
+#             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@$LOCAL_IP << 'EOF'
+#               docker stop myappcontainer || true
+#               docker rm myappcontainer || true
+#               docker run -d --name kundan_website -p 8081:8081 docker.io/kundankkkrishna/newapp:latest
+#             EOF
+
+# this part can be used to deploy on minikube cluster
+
+      - name: Deploy to minikube
         run: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@$LOCAL_IP << 'EOF'
-              docker stop myappcontainer || true
-              docker rm myappcontainer || true
-              docker run -d --name kundan_website -p 8081:8081 docker.io/kundankkkrishna/newapp:latest
-            EOF
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@$LOCAL_IP << 'EOF'
+            kubectl apply -f kube
+          EOF
+      - name: Test service URLs
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@${{ secrets.SERVER_IP }} << 'EOF'
+            minikube service list
+            minikube service myservice --url
+          EOF
