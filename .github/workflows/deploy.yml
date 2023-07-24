@@ -19,11 +19,18 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Log in to Docker registry
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: docker login docker.io -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD}}
   
-
-      - name: Deploy Docker container
+      - name: Pull Docker image
+        run: docker pull docker.io/kundankkkrishna/finalapp:latest
+  
+      - name: Set up SSH key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+  
+      - name: Deploy to EC2 Instance
         run: |
-          # Replace the placeholders below with your actual deployment commands.
-            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker pull docker.io/kundankkkrishna/finalapp:latest"
-            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker run -d -p 8081:8081 finalapp:latest"
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@13.233.244.159 << 'EOF'
+              docker stop kundan_website || true
+              docker rm kundan_website || true
+              docker run -d --name kundan_website -p 8081:8081 docker.io/kundankkrishna/finalapp:latest
+            EOF
