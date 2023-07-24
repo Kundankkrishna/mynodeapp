@@ -19,7 +19,7 @@ jobs:
 #           script: |
 #             echo "$SSH_KEY" > deploy_key
 #             chmod 400 deploy_key
-#             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@65.0.184.214 -p 22 "docker pull kundankkkrishna/finalapp:latest && \
+#             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@$SERVER_IP -p 22 "docker pull kundankkkrishna/finalapp:latest && \
 #             docker stop nodeappcontainer || true \
 #             docker rm nodeappcontainer || true \
 #             docker run -d --name nodeappcontainer -p 80:80 kundankkkrishna/finalapp:latest"
@@ -32,17 +32,18 @@ jobs:
       - name: Set up SSH key
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
-      - name: Deploy to EC2 instance via SSH
+      - name: Deploy to server via SSH
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
         run: |
           # Install AWS CLI (if necessary)
           #sudo apt-get install -qq awscli
 
 
-          # SSH into the EC2 instance and run Docker commands
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@65.0.184.214 << 'EOF'
+          # connect to the server and run Docker commands
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@$SERVER_IP << 'EOF'
 
           # Pull the latest image from Docker Hub
           docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
