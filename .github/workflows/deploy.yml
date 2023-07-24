@@ -26,7 +26,6 @@ jobs:
           # Install AWS CLI (if necessary)
           # sudo apt-get install -qq awscli
 
-
           # connect to the server and run Docker commands
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@$SERVER_IP << 'EOF'
 
