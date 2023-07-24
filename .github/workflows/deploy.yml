@@ -31,5 +31,5 @@ jobs:
       - name: Deploy Docker container
         run: |
           # Replace the placeholders below with your actual deployment commands.
-          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker pull kundankkkrishna/finalapp:latest"
-          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker run -d -p 8081:8081 finalapp:latest"
+          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD -c docker pull kundankkkrishna/finalapp:latest
+          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD -c docker run -d -p 8081:8081 finalapp:latest
