@@ -59,12 +59,12 @@ jobs:
 
       - name: Deploy to minikube
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@ 103.53.233.81 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@103.53.233.81 << 'EOF'
             kubectl apply -f kube
           EOF
       - name: Test service URLs
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@ 103.53.233.81 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa kk@103.53.233.81 << 'EOF'
             minikube service list
             minikube service myservice --url
           EOF
