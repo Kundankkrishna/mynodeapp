@@ -13,13 +13,13 @@ jobs:
 #         env:
 #           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 #         with:
-#           host: 65.0.184.214
-#           username: ubuntu
+#           host: $SERVER_IP
+#           username: $USERNAME
 #           port: 22
 #           script: |
 #             echo "$SSH_KEY" > deploy_key
 #             chmod 400 deploy_key
-#             ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@$SERVER_IP -p 22 "docker pull kundankkkrishna/finalapp:latest && \
+#             ssh -o StrictHostKeyChecking=no -i deploy_key $USERNAME@$SERVER_IP -p 22 "docker pull kundankkkrishna/finalapp:latest && \
 #             docker stop nodeappcontainer || true \
 #             docker rm nodeappcontainer || true \
 #             docker run -d --name nodeappcontainer -p 80:80 kundankkkrishna/finalapp:latest"
@@ -30,13 +30,15 @@ jobs:
         run: sudo apt-get install -qq openssh-client
 
       - name: Set up SSH key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa \
+          && chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to server via SSH
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD }}
           SERVER_IP: ${{ secrets.SERVER_IP }}
+          USERNAME: ${{ secrets.USER_NAME }}
         run: |
           # Install AWS CLI (if necessary)
           #sudo apt-get install -qq awscli
