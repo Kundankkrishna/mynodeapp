@@ -18,6 +18,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Log in to Docker Hub
+        run: docker login -u kundankkkrishna -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
       - name: Deploy Docker container
         run: |
           # Replace the placeholders below with your actual deployment commands.
