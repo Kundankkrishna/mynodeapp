@@ -28,7 +28,7 @@
 #             echo "launching the service"
 #             curl $(minikube service nodeservice --url )
 
-name: Docker Build and Deploy
+name: Docker Build
 on:
   push:
     branches:
