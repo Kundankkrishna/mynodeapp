@@ -24,5 +24,5 @@ jobs:
       - name: Deploy Docker container
         run: |
           # Replace the placeholders below with your actual deployment commands.
-            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "sudo docker pull kundankkkrishna/finalapp:latest"
-            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "sudo docker run -d -p 8081:8081 finalapp:latest"
+            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker pull kundankkkrishna/finalapp:latest"
+            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker run -d -p 8081:8081 finalapp:latest"
