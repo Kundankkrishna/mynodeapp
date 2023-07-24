@@ -18,9 +18,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  
+
       - name: Deploy Docker container
         run: |
           # Replace the placeholders below with your actual deployment commands.
-            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker pull kundankkkrishna/finalapp:latest"
+            ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker pull docker.io/kundankkkrishna/finalapp:latest"
             ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker run -d -p 8081:8081 finalapp:latest"
