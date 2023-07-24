@@ -30,8 +30,7 @@ jobs:
         run: sudo apt-get install -qq openssh-client
 
       - name: Set up SSH key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa \
-          && chmod 600 ~/.ssh/id_rsa
+        run: echo ${secrets.SSH_PRIVATE_KEY} > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to server via SSH
         env:
