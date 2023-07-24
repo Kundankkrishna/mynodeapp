@@ -32,5 +32,5 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@13.233.244.159 << 'EOF'
               docker stop kundan_website || true
               docker rm kundan_website || true
-              docker run -d --name kundan_website -p 8081:8081 docker.io/kundankkrishna/finalapp:latest
+              docker run -d --name kundan_website -p 8081:8081 docker.io/kundankkkrishna/finalapp:latest
             EOF
