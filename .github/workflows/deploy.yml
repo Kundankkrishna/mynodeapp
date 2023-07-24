@@ -22,5 +22,5 @@ jobs:
         run: |
           # Replace the placeholders below with your actual deployment commands.
           # Example:
-           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@65.0.18.62 "docker pull kundankkkrishna/finalapp:latest"
-           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@65.0.18.62 "docker run -d -p 8081:8081 finalapp:latest"
+           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@65.0.18.62 "sudo docker pull kundankkkrishna/finalapp:latest"
+           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@65.0.18.62 "sudo docker run -d -p 8081:8081 finalapp:latest"
