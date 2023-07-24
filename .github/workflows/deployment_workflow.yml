@@ -1,0 +1,43 @@
+name: Deploy Job
+on:
+  push:
+    branches:
+      - main
+env:
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  SERVER_IP: ${{ secrets.SERVER_IP }}
+  USERNAME: ${{ secrets.USER_NAME }}
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH client
+        run: sudo apt-get install -qq openssh-client
+
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: Deploy to server via SSH
+        
+        run: |
+          # connect to the server and run Docker commands
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@$SERVER_IP << 'EOF'
+          # Pull the latest image from Docker Hub
+          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+          docker pull kundankkkrishna/finalapp:latest
+          # Stop and remove the existing container
+          docker stop appcontainer || true
+          docker rm appcontainer || true
+          # Run the new container
+          docker run -d --name appcontainer -p 80:80 kundankkkrishna/finalapp:latest
+          '
+
+      - name: Deploy Docker container
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD docker.io/kundankkkrishna/finalapp" -c "docker pull kundankkkrishna/finalapp:latest:" \
+          ssh -o StrictHostKeyChecking=no ubuntu@13.233.244.159 "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD docker.io/kundankkkrishna/finalapp" -c "docker run -d -p 8081:8081 kundankkkrishna/finalapp:latest"
