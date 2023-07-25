@@ -113,7 +113,7 @@ jobs:
         uses: medyagh/setup-minikube@v0.0.13
       
       - name: Deploy to minikube
-        run: kubectl apply -f kube
+        run: kubectl apply -f alldeployments.yml
         
       - name: Test service URLs
         run: |
