@@ -55,7 +55,7 @@ jobs:
             sudo -s pwd
         
       - name: Deploy to minikube
-        run: kubectl apply -f $deployment_file_path
+        run: kubectl apply -f "$deployment_file_path"
         
       - name: Test service URLs
         run: |
