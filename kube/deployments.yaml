@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: container1
-          image: docker.io/kundankkkrishna/finalapp:latest
+          image: docker.io/kundankkkrishna/newapp:latest
           resources:
             limits:
               cpu: 100m
