@@ -51,7 +51,7 @@ jobs:
             deployment_file_path=$(sudo find /var/lib/docker/overlay2/ -name alldeployments.yml)
             echo $deployment_file_path
             id
-            sudo -s cd $deployment_file_path
+            sudo -s cd $(deployment_file_path)/..
             sudo -s pwd
         
       - name: Deploy to minikube
