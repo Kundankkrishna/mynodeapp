@@ -123,7 +123,7 @@ jobs:
             echo $deployment_file_path
         
       - name: Deploy to minikube
-        run: kubectl apply -f $deployment_file_path
+        run: kubectl apply -f /var/lib/docker/overlay2/e03d87ef1250957fb7f2b9bb41e307d104b87de3aac9f51f5c5b75ef636e8c93/diff/usr/src/path/alldeployments.yml
         
       - name: Test service URLs
         run: |
