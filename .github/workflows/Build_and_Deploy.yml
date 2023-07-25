@@ -114,4 +114,4 @@ jobs:
       
       - name: Deploy to minikube
         run: |
-          kubectl apply -f kube && minikube service myservice --url
+          kubectl apply -f ./kube && minikube service myservice --url
