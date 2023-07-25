@@ -118,9 +118,9 @@ jobs:
       
       - name: find current directory
         run: pwd
-#       - name: test file location
-#         run: |
-#             deployment_file_path=$(find / -name alldeployments.yml)
+      - name: test file location
+        run: |
+            deployment_file_path=$(find . -name alldeployments.yml)
         
       - name: Deploy to minikube
         run: kubectl apply -f $deployment_file_path
