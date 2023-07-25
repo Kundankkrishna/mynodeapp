@@ -113,5 +113,9 @@ jobs:
         uses: medyagh/setup-minikube@v0.0.13
       
       - name: Deploy to minikube
+        run: kubectl apply -f kube
+        
+      - name: Test service URLs
         run: |
-          kubectl apply -f ./kube && minikube service myservice --url
+            minikube service list
+            minikube service myservice --url
