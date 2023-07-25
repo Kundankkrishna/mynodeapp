@@ -111,6 +111,8 @@ jobs:
 
       - name: setup-minikube
         uses: medyagh/setup-minikube@v0.0.13
+        with:
+          context: .
       
       - name: Deploy to minikube
         run: kubectl apply -f alldeployments.yml
