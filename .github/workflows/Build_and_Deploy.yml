@@ -120,6 +120,7 @@ jobs:
         run: pwd
       - name: test file location
         run: |
+            declare deployment_file_path
             deployment_file_path=$(find . -name alldeployments.yml)
             echo $deployment_file_path
         
