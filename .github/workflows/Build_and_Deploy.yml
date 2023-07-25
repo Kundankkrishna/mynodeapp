@@ -109,8 +109,6 @@ jobs:
       - name: Pull Docker image
         run: docker pull docker.io/kundankkkrishna/newapp:latest
         
-      
-
       - name: setup-minikube
         uses: medyagh/setup-minikube@v0.0.13
         with:
@@ -121,7 +119,7 @@ jobs:
       - name: test file location
         run: |
             declare deployment_file_path
-            deployment_file_path=$(find . -name alldeployments.yml)
+            deployment_file_path=$(find ./ -name alldeployments.yml)
             echo $deployment_file_path
         
       - name: Deploy to minikube
