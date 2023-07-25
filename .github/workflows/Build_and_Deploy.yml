@@ -119,7 +119,7 @@ jobs:
       - name: test file location
         run: |
             declare deployment_file_path
-            deployment_file_path=$(find ./ -name alldeployments.yml)
+            deployment_file_path=$(sudo find / -name alldeployments.yml)
             echo $deployment_file_path
         
       - name: Deploy to minikube
