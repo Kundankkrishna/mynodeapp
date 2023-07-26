@@ -49,7 +49,7 @@ jobs:
           ls -la /home/runner/work/mynodeapp/
       - name: test file location
         run: |
-            var=".."
+            var="/.."
             deployment_file_path=$(sudo find / -name alldeployments.yml)
             echo $deployment_file_path
             
