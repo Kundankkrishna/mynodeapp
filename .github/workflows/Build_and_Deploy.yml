@@ -52,7 +52,6 @@ jobs:
         
       - name: Deploy to minikube
         run: |
-          eval $(minikube -p minikube docker-env)
           kubectl apply -f alldeployments.yml
         
       - name: Test service URLs
