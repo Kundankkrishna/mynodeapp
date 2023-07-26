@@ -46,7 +46,7 @@ jobs:
       - name: find current directory
         run: | 
           pwd
-          ls -la /home/runner/work/mynodeapp/mynodeapp
+          ls -la /usr/src/path/
       - name: test file location
         run: |
             var=".."
