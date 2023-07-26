@@ -36,11 +36,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
   
       - name: Pull Docker image
-        uses: docker/build-push-action@v4.1.1
-        with:
-          context: .
-          pull: true
-          tags: kundankkkrishna/newapp:latest
+        run: docker pull docker.io/kundankkkrishna/newapp:latest
         
       - name: setup-minikube
         uses: medyagh/setup-minikube@v0.0.13
