@@ -44,18 +44,21 @@ jobs:
           context: .
       
       - name: find current directory
-        run: pwd
+        run: | 
+          pwd
+          ls -la /home/runner/work/mynodeapp/mynodeapp
       - name: test file location
         run: |
             var=".."
-            deployment_file_path=$(sudo find ../ -name alldeployments.yml)
+            deployment_file_path=$(sudo find / -name alldeployments.yml)
             echo $deployment_file_path
             
             sudo -s cd $deployment_file_path$var
             sudo -s pwd
         
       - name: Deploy to minikube
-        run: kubectl apply -f "$deployment_file_path"
+        run: |
+          kubectl apply -f $deployment_file_path
         
       - name: Test service URLs
         run: |
