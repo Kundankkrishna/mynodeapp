@@ -38,6 +38,9 @@ jobs:
       - name: Pull Docker image
         run: docker pull docker.io/kundankkkrishna/newapp:latest
         
+      - name: check minikube status
+        run: minikube status
+        
       - name: setup-minikube
         uses: medyagh/setup-minikube@v0.0.13
         with:
@@ -49,7 +52,9 @@ jobs:
         
       - name: Deploy to minikube
         run: |
-          kubectl apply -k /kube
+          export SHELL=/bin/bash
+          eval $(minikube -p minikube docker-env)
+          kubectl apply -f alldeployments.yml
         
       - name: Test service URLs
         run: |
