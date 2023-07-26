@@ -49,13 +49,9 @@ jobs:
           ls -la /home/runner/work/mynodeapp/
       - name: test file location
         run: |
-          declare var
-          var="/.."
           declare deployment_file_path
           deployment_file_path=$(sudo find / -name alldeployments.yml)
           echo $deployment_file_path
-          sudo -s cd $deployment_file_path$var
-          sudo -s pwd
         
       - name: Deploy to minikube
         run: |
