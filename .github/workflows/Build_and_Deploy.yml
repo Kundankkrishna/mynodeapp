@@ -38,13 +38,8 @@ jobs:
       - name: Pull Docker image
         run: docker pull docker.io/kundankkkrishna/newapp:latest
         
-#       - name: check minikube status
-#         run: minikube status
-        
       - name: setup-minikube
-        uses: medyagh/setup-minikube@v0.0.13
-        with:
-          context: .
+        uses: medyagh/setup-minikube@master
     
       - name: check cluster
         run: |
