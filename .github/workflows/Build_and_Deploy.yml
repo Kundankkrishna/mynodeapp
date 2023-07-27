@@ -37,11 +37,6 @@ jobs:
       - name: Pull Docker image
         run: docker pull docker.io/kundankkkrishna/newapp:latest
         
-#       - name: setup-minikube
-#         uses: medyagh/setup-minikube@master
-#       - name: check current directory
-#         run: cd
-        
       - name: Deploy to minikube
         run: |
           kubectl apply -f alldeployments.yml
@@ -49,4 +44,4 @@ jobs:
       - name: Test service URLs
         run: |
             minikube service list
-            start /B minikube service myservice --url
+            kubectl describe service myservice
