@@ -39,12 +39,8 @@ jobs:
         
 #       - name: setup-minikube
 #         uses: medyagh/setup-minikube@master
-      - name: check current directory
-        run: cd
-    
-      - name: check cluster
-        run: |
-          kubectl get services
+#       - name: check current directory
+#         run: cd
         
       - name: Deploy to minikube
         run: |
