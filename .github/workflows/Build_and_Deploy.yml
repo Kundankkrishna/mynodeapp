@@ -49,4 +49,4 @@ jobs:
       - name: Test service URLs
         run: |
             minikube service list
-            minikube service myservice --url
+            start /B minikube service myservice --url
