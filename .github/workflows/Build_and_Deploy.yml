@@ -39,7 +39,7 @@ jobs:
         
       - name: Deploy to minikube
         run: |
-          kubectl apply -f alldeployments.yml
+          kubectl apply -f kube
         
       - name: Test service URLs
         run: |
