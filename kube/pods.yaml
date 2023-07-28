@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - image: docker.io/kundankkkrishna/newapp:latest
-      name: myapp
+      name: newapp
       ports:
         - containerPort: 8081
       resources:
