@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
 			}
 		});
 	}
-	else if (url === "/primechecker") {
+	else if (url === "/prime.html") {
 		fs.readFile("prime.html", function (err, pgres) {
 			if (err)
 				res.write("prime.HTML NOT FOUND");
