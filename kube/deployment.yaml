@@ -12,7 +12,7 @@ spec:
         app: myapp
     spec:
       containers:
-        - name: container1
+        - name: newappcontainer
           image: docker.io/kundankkkrishna/newapp:latest
           resources:
             limits:
