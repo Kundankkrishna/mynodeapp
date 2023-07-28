@@ -1,32 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo
+  name: myappdeployment
 spec:
   selector:
     matchLabels:
-      app: mongo
+      app: myapp
   template:
     metadata:
       labels:
-        app: mongo
+        app: myapp
     spec:
       containers:
-        - name: mongo
-          image: mongo:6.0.2-focal
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: storage
-              mountPath: /data/db
+        - name: container1
+          image: docker.io/kundankkkrishna/newapp:latest
           resources:
             limits:
               cpu: 100m
-              memory: 512Mi
+              memory: 128Mi
             requests:
               cpu: 100m
-              memory: 256Mi
-      volumes:
-        - name: storage
-          persistentVolumeClaim:
-            claimName: mongo-pvc
+              memory: 128Mi
