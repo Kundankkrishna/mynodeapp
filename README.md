@@ -2,7 +2,8 @@
 this app is for learning the devops process
 
 
-after moving to the project location change directory to actions-runner then run the command 
+for this workflow to run we need to run powershell as administrator in the configured runner then go to the project location and change 
+directory to actions-runner then run the command to enable the runner to listen for jobs.
 
 ./run.cmd
 
