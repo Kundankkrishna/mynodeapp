@@ -47,4 +47,3 @@ jobs:
       - name: Test service URLs
         run: |
             minikube service list
-            kubectl describe service myservice
