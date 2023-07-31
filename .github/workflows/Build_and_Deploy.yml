@@ -42,7 +42,7 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
-          kubectl apply -f kube
+          helm install my-release ./nodeapphelmchart
         
       - name: Test service URLs
         run: |
