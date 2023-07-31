@@ -42,6 +42,8 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
+        # deleting any previous release with the same name to avoid conflict.
+          helm unistall my-release
           helm install my-release ./nodeapphelmchart
         
       - name: Test service URLs
