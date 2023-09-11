@@ -50,7 +50,7 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
-          if [ helm uninstall my-release == "0" ]
+          if [ $(helm uninstall my-release) == "0" ]
             then
               helm install my-release ./nodeapphelmchart
           else
