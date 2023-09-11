@@ -50,8 +50,7 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
-          helm uninstall my-release
-          helm install my-release ./nodeapphelmchart
+          helm uninstall my-release & helm install my-release ./nodeapphelmchart
         
       - name: Test service URLs
         run: |
