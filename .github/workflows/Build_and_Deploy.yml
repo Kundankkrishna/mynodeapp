@@ -50,8 +50,7 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
-          helm uninstall my-release
-          if [ $? == "0" ]
+          if [ helm uninstall my-release == "0" ]
             then
               helm install my-release ./nodeapphelmchart
           else
@@ -60,4 +59,7 @@ jobs:
         
       - name: Test service URLs
         run: |
-            minikube service list
+          minikube service list
+          minikube service discover --url
+          echo -n "------------------opening the service------------------"
+          curl $(minikube service discover --url)/version
