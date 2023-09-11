@@ -52,6 +52,10 @@ jobs:
         
 #       - name: delete previous deployments
 #         run: kubectl delete -f kube
+
+      - name: locate files
+        run: |
+          sudo apt update && sudo apt-get install locate -y && locate app.js
                 
       - name: Deploy to minikube
         run: |
