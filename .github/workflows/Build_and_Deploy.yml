@@ -57,10 +57,11 @@ jobs:
         run: |
           sudo apt update && sudo apt-get install locate -y && locate app.js
                 
-      - name: Deploy to minikube
-        run: |
-          pwd && ls -la && cd .. && pwd && ls -la && cd .. && pwd && ls -al && cd mynodeapp/mynodeapp && pwd &&
-          helm install my-release ./nodeapphelmchart
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        # run: |
+        #   pwd && ls -la && cd .. && pwd && ls -la && cd .. && pwd && ls -al && cd mynodeapp/mynodeapp && pwd &&
+        #   helm install my-release ./nodeapphelmchart
         
         # if [ $(helm uninstall my-release)==0 ]
         #   then
