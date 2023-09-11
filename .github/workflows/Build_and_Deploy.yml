@@ -54,8 +54,8 @@ jobs:
                 
       - name: Deploy to minikube
         run: |
-          pwd && ls -la && cd .. && pwd && ls -la && cd .. && pwd && ls -al && cd mynodeapp/mynodeapp
-          helm install my-release nodeapphelmchart
+          pwd && ls -la && cd .. && pwd && ls -la && cd .. && pwd && ls -al && cd mynodeapp/mynodeapp && pwd &&
+          helm install my-release ./nodeapphelmchart
         
         # if [ $(helm uninstall my-release)==0 ]
         #   then
