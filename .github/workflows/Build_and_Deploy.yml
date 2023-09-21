@@ -60,12 +60,12 @@ jobs:
       #   run: |
       #     sudo find / -iname "app_source"
                 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
-        with:
-          charts_dir: charts
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      # - name: Run chart-releaser
+      #   uses: helm/chart-releaser-action@v1.5.0
+      #   with:
+      #     charts_dir: charts
+      #   env:
+      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Release Using Helm Chart
         run: | 
