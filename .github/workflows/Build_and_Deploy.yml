@@ -61,14 +61,16 @@ jobs:
       #     sudo find / -iname "app_source"
                 
       - name: Run chart-releaser
-        # uses: helm/chart-releaser-action@v1.5.0
-        run: |
-          if [ $(helm uninstall my-release)==0 ]
-            then
-              helm install my-release nodeapphelmchart
-          else
-            helm uninstall my-release && helm install my-release nodeapphelmchart
-          fi
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          charts_dir: charts
+        # run: |
+        #   if [ $(helm uninstall my-release)==0 ]
+        #     then
+        #       helm install my-release nodeapphelmchart
+        #   else
+        #     helm uninstall my-release && helm install my-release nodeapphelmchart
+        #   fi
           
         #   pwd && ls -la && cd .. && pwd && ls -la && cd .. && pwd && ls -al && cd mynodeapp/mynodeapp && pwd &&
         #   helm install my-release ./nodeapphelmchart
