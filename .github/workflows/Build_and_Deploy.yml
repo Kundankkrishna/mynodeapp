@@ -66,6 +66,14 @@ jobs:
           charts_dir: charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Release Using Helm Chart
+        run: | 
+          helm install my-release ./nodeapphelmchart
+
+      - name: get ip 
+        run: |
+          ifconfig -a
           
         # run: |
         #   if [ $(helm uninstall my-release)==0 ]
