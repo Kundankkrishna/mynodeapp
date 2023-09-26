@@ -54,11 +54,21 @@ jobs:
 
       - name: locate files
         run: |
-          ls -altr /usr/src/path/
+          echo $HOME \
+          pwd \
+          ls -altr ~/usr/src/path/
 
-      - name: Release Using Helm Chart
-        run: | 
-          helm install my-release ./nodeapphelmchart
+      - name: 'Deploy'
+        uses: 'deliverybot/helm@v1'
+        with:
+          release: 'mynodeapp'
+          namespace: 'default'
+          chart: 'app'
+          token: '${{ github.token }}'
+
+      # - name: Release Using Helm Chart
+      #   run: | 
+      #     helm install my-release ./nodeapphelmchart
         
 #       - name: delete previous deployments
 #         run: kubectl delete -f kube
