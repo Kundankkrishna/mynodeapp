@@ -12,12 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive
-          repository: Kundankkrishna/mynodeapp.git
-          ref: main
-
+        
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -49,12 +44,20 @@ jobs:
         with:
           cache: false
 
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Set up Helm
         uses: azure/setup-helm@v3
 
-      - name: locate files
-        run: |
-          echo $HOME && pwd && cd ~/usr/src/path/ && ls -altr 
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          charts_dir: nodeapphelmchart
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"      
 
       # - name: 'Deploy using helm'
       #   uses: 'deliverybot/helm@v1'
