@@ -54,7 +54,7 @@ jobs:
 
       - name: locate files
         run: |
-          echo $HOME && pwd && cd ~/usr/src/path/ ls -altr 
+          echo $HOME && pwd && cd ~/usr/src/path/ && ls -altr 
 
       # - name: 'Deploy using helm'
       #   uses: 'deliverybot/helm@v1'
