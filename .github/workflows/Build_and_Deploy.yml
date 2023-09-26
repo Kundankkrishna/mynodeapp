@@ -55,7 +55,7 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          helm package ./my-helm-chart -d ./helm-packages
+          helm package ./nodeapphelmchart -d ./helm-packages
           helm repo index ./helm-packages --url https://github.com/kundankkrishna/mynodeapp
           
       - name: Publish Helm Chart
