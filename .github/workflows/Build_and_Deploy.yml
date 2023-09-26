@@ -58,17 +58,17 @@ jobs:
           pwd \
           ls -altr ~/usr/src/path/
 
-      - name: 'Deploy using helm'
-        uses: 'deliverybot/helm@v1'
-        with:
-          release: 'mynodeapp'
-          namespace: 'default'
-          chart: 'app'
-          token: '${{ secrets.GITHUB_TOKEN }}'
-          value-files: >-
-            [
-              "values.yaml"
-            ]
+      # - name: 'Deploy using helm'
+      #   uses: 'deliverybot/helm@v1'
+      #   with:
+      #     release: 'mynodeapp'
+      #     namespace: 'default'
+      #     chart: 'app'
+      #     token: '${{ secrets.GITHUB_TOKEN }}'
+      #     value-files: >-
+      #       [
+      #         "values.yaml"
+      #       ]
 
       # - name: Release Using Helm Chart
       #   run: | 
