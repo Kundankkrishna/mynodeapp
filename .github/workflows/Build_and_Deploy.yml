@@ -56,7 +56,8 @@ jobs:
         run: |
           echo $HOME \
           pwd \
-          ls -altr ~/usr/src/path/
+          cd ~/usr/src/path/ \
+          ls -altr 
 
       # - name: 'Deploy using helm'
       #   uses: 'deliverybot/helm@v1'
