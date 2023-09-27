@@ -41,7 +41,8 @@ jobs:
 
       - name: file structure
         run: |
-          pwd && tree . && cd /home/runner/work/ && ls -al
+          sudo apt-get install tree -y
+          pwd && ls -al && cd /home/runner/work/ && tree .
 
       # - name: Setup Minikube Cluster
       #   uses: medyagh/setup-minikube@latest
