@@ -1,7 +1,7 @@
 FROM node:18-alpine
 
 # create work directcory
-WORKDIR /usr/src/path
+WORKDIR ~/myapp
 
 # copying the dependency files to the image
 COPY packag*.json ./
