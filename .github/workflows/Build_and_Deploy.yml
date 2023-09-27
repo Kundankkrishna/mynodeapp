@@ -49,7 +49,7 @@ jobs:
 
       - name: file structure
         run: |
-          sudo apt-get install tree -y && tree ~
+          ls -la && cd work && tree .
 
       # - name: Run chart-releaser
       #   uses: helm/chart-releaser-action@v1.5.0
