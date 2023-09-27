@@ -4,7 +4,7 @@ FROM node:18-alpine
 WORKDIR ~/myapp
 
 # copying the dependency files to the image
-COPY packag*.json ~/myapp
+COPY packag*.json ./
 
 # running the npm install command to install the dependencies
 RUN npm install
