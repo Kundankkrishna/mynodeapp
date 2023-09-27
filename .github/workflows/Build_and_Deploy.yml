@@ -49,7 +49,7 @@ jobs:
 
       - name: file structure
         run: |
-          ls -la && cd work && tree .
+          pwd && tree .
 
       # - name: Run chart-releaser
       #   uses: helm/chart-releaser-action@v1.5.0
