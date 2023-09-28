@@ -30,15 +30,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps: 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        
       - name: Set up Helm
         uses: azure/setup-helm@v3
 
-      - name: Package the helm chart
+      - name: Add helm chart repo
         run: |
-          helm package nodeapphelmchart/ -d . && helm repo index . && helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
+          helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
 
       - name: Setup Minikube Cluster
         uses: medyagh/setup-minikube@latest
@@ -47,7 +44,7 @@ jobs:
 
       - name: Deploy
         run: |
-            if [ $(helm uninstall my-release)==0 ]
+            if [ $(helm uninstall my-app-release)==0 ]
               then
                 helm install my-app-release nodeapp-helm-repo/mynodeapp
             else
