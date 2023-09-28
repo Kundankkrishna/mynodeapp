@@ -27,7 +27,7 @@ jobs:
           
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: kynPC
 
     steps:
       - name: Login to Docker Repository
