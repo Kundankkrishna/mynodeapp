@@ -1,10 +1,10 @@
 FROM node:18-alpine
 
 # create work directcory
-WORKDIR /usr/src/path
+WORKDIR /usr/myapp
 
 # copying the dependency files to the image
-COPY packag*.json ./
+COPY packag*.json .
 
 # running the npm install command to install the dependencies
 RUN npm install
