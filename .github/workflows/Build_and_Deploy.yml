@@ -54,7 +54,7 @@ jobs:
 
       - name: Release Using Helm Chart
         run: | 
-          helm install my-release nodeapphelmchart
+          helm install my-release https://kundankkrishna.github.io/mynodeapp/nodeapphelmchart
           
       - name: Test service URLs
         run: |
