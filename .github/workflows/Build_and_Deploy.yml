@@ -44,12 +44,13 @@ jobs:
 
       - name: Deploy
         run: |
-            if [ $(helm uninstall my-app-release)==0 ]
-              then
-                helm install my-app-release nodeapp-helm-repo/mynodeapp
-            else
-              helm upgrade my-app-release nodeapp-helm-repo/mynodeapp
-            fi
+          helm install my-app-release nodeapp-helm-repo/mynodeapp
+            # if [ $(helm uninstall my-app-release)==0 ]
+            #   then
+                # helm install my-app-release nodeapp-helm-repo/mynodeapp
+            # else
+            #   helm upgrade my-app-release nodeapp-helm-repo/mynodeapp
+            # fi
           
       - name: Test service URLs
         run: |
