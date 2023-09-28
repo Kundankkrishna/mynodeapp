@@ -27,34 +27,29 @@ jobs:
           
   deploy:
     needs: build
-    runs-on: kynPC
+    runs-on: ubuntu-latest
 
-    steps:
-      - name: Login to Docker Repository
-        uses: docker/login-action@v2
+    steps:          
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+
+      - name: Package the helm chart
+        run: |
+          helm package nodeapphelmchart/ -d . && helm repo index . && helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
+
+      - name: Setup Minikube Cluster
+        uses: medyagh/setup-minikube@latest
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-  
-      - name: Pull Docker image
-        run: docker pull docker.io/kundankkkrishna/newapp:latest
+          cache: false
 
-      # - name: file structure
-      #   run: |
-      #     sudo apt-get install tree -y
-      #     pwd && ls -al && tree -a /home/runner/work/
-
-      # - name: Setup Minikube Cluster
-      #   uses: medyagh/setup-minikube@latest
-      #   with:
-      #     cache: false
-          
-      # - name: Set up Helm
-      #   uses: azure/setup-helm@v3
-
-      - name: Release Using Helm Chart
-        run: | 
-          helm install my-release https://kundankkrishna.github.io/mynodeapp/nodeapphelmchart
+      - name: Deploy
+        run: |
+            if [ $(helm uninstall my-release)==0 ]
+              then
+                helm install my-app-release nodeapp-helm-repo/mynodeapp
+            else
+              helm upgrade my-app-release nodeapp-helm-repo/mynodeapp
+            fi
           
       - name: Test service URLs
         run: |
