@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy using helm chart
         run: |
-          helm install my-app-release nodeapp-helm-repo/mynodeapp
+          helm repo update && helm install my-app-release nodeapp-helm-repo/mynodeapp
           
       - name: Test service URLs
         run: |
