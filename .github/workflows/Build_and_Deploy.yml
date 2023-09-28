@@ -35,7 +35,7 @@ jobs:
 
       - name: Add helm chart repo
         run: |
-          helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
+          helm package nodeapphelmchart/ -d . && helm repo index . && helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
 
       - name: Setup Minikube Cluster
         uses: medyagh/setup-minikube@latest
