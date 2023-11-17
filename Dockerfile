@@ -14,7 +14,7 @@ RUN apk add gpg
 RUN apk add -v apt
 RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 RUN echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
-RUN apk add --update && apk add kubectl
+RUN apt-get update && apt-get install kubectl
 RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 RUN install minikube-linux-amd64 /usr/local/bin/minikube
 RUN minikube start
