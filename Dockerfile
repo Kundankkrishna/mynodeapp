@@ -17,7 +17,7 @@ RUN install minikube-linux-amd64 /usr/local/bin/minikube
 # RUN minikube start --driver=docker
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 RUN chmod u+x get_helm.sh
-RUN ./get_helm.sh
+RUN sh get_helm.sh
 
 # copying all the files from the host to the container
 COPY . .
