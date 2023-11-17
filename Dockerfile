@@ -8,7 +8,7 @@ COPY packag*.json .
 
 # running the npm install command to install the dependencies
 RUN npm install
-RUN sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl 
+RUN sudo apt-get update
 RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 RUN echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 RUN sudo apt-get update && sudo apt-get install -y kubectl
