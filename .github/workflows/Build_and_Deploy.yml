@@ -36,24 +36,33 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v3
 
-      - name: Package the helm chart
-        run: |
-          helm package nodeapphelmchart/ -d . && helm repo index . && helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
+      # - name: Package the helm chart
+      #   run: |
+      #     helm package nodeapphelmchart/ -d . && helm repo index . && helm repo add nodeapp-helm-repo https://kundankkrishna.github.io/mynodeapp/
 
-      - name: Setup Minikube Cluster
-        uses: medyagh/setup-minikube@latest
+      # - name: Setup Minikube Cluster
+      #   uses: medyagh/setup-minikube@latest
+      #   with:
+      #     cache: false
+
+      # - name: Deploy
+      #   run: |
+      #       if [ $(helm uninstall my-release)==0 ]
+      #         then
+      #           helm install my-app-release nodeapp-helm-repo/mynodeapp
+      #       else
+      #         helm upgrade my-app-release nodeapp-helm-repo/mynodeapp
+      #       fi
+
+
+      - name: 'Deploy'
+        uses: 'deliverybot/helm@v1'
         with:
-          cache: false
-
-      - name: Deploy
-        run: |
-            if [ $(helm uninstall my-release)==0 ]
-              then
-                helm install my-app-release nodeapp-helm-repo/mynodeapp
-            else
-              helm upgrade my-app-release nodeapp-helm-repo/mynodeapp
-            fi
-          
+          release: 'mynodeapp'
+          namespace: 'default'
+          chart: 'nodeapphelmchart'
+          token: '${{ github.token }}'
+          repo: 'https://kundankkrishna.github.io/mynodeapp/'
       - name: Test service URLs
         run: |
           minikube service list
