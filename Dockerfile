@@ -15,9 +15,7 @@ RUN chmod +x kubectl && mkdir -p ~/.local/bin && mv ./kubectl ~/.local/bin/kubec
 RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 RUN install minikube-linux-amd64 /usr/local/bin/minikube
 # RUN minikube start --driver=docker
-RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-RUN chmod u+x get_helm.sh
-RUN sh get_helm.sh
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sh
 
 # copying all the files from the host to the container
 COPY . .
