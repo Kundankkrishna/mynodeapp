@@ -1,3 +1,5 @@
+FROM bitnami/kubectl:latest
+FROM rancher/helm-controller:v0.15.4
 FROM node:18-alpine
 
 # create work directcory
