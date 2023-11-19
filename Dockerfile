@@ -12,7 +12,7 @@ RUN apk add --update
 RUN apk add -v curl openssl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && install minikube-linux-amd64 /usr/local/bin/minikube && minikube start
+# RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && install minikube-linux-amd64 /usr/local/bin/minikube && minikube start
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sh
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
