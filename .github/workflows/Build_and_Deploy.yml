@@ -42,9 +42,9 @@ jobs:
         run: |
             if [ $(helm uninstall my-release)==0 ]
               then
-                helm install my-app-release https://kundankkrishna.github.io/mynodeapp
+                helm install my-app-release ./nodeapphelmchart
             else
-              helm upgrade my-app-release https://kundankkrishna.github.io/mynodeapp
+              helm upgrade my-app-release ./nodeapphelmchart
             fi
 
 
