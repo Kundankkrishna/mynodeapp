@@ -40,7 +40,6 @@ jobs:
 
       - name: Deploy
         run: |
-            helm uninstall my-release
             helm install my-app-release ./nodeapphelmchart
 
 
