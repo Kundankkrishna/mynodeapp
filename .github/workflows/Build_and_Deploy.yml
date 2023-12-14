@@ -48,7 +48,8 @@ jobs:
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v3
         with:
-          exec: helm upgrade my-app-release ./nodeapphelmchart --install --wait --atomic
+          exec: helm upgrade my-app-release ./nodeapphelmchart --install 
+          # --wait --atomic
       
 # not working
       # - name: 'Deploy'
