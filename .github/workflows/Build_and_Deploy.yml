@@ -37,12 +37,20 @@ jobs:
         uses: medyagh/setup-minikube@latest
         with:
           cache: false
+# working 
+      # - name: Deploy
+      #   run: |
+      #       helm install my-app-release ./nodeapphelmchart
+
+
+# Testing 
 
       - name: Deploy
-        run: |
-            helm install my-app-release ./nodeapphelmchart
-
-
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm upgrade my-app-release ./anodeapphelmchart --install --wait --atomic
+      
+# not working
       # - name: 'Deploy'
       #   uses: 'deliverybot/helm@v1'
       #   with:
