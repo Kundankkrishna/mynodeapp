@@ -64,6 +64,6 @@ jobs:
       - name: Test service URLs
         run: |
           minikube service list
-          minikube service nodeappsvc --url
+          minikube service myservice --url
           echo -n "------------------opening the service------------------"
-          # curl $(minikube service nodeappsvc --url)/version
+          # curl $(minikube service myservice --url)/version
