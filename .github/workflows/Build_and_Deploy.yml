@@ -63,6 +63,7 @@ jobs:
       
       - name: Test service URLs
         run: |
+          sleep 100
           kubectl get pods
           kubectl get svc
           kubectl get ingress
