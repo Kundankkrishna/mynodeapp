@@ -71,4 +71,4 @@ jobs:
           minikube service list
           minikube service myservice --url
           echo -n "------------------opening the service------------------"
-          # curl $(minikube service myservice --url)/version
+          curl $(minikube service myservice --url)/version
