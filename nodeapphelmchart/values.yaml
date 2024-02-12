@@ -1,4 +1,4 @@
-# Default values for testchart.
+# Default values for nodeapphelmchart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -12,7 +12,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "testchart"
+fullnameOverride: "nodeapphelmchart"
 
 serviceAccount:
   # Specifies whether a service account should be created
