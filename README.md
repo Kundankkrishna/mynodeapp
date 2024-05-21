@@ -10,6 +10,6 @@ directory to actions-runner then run the command to enable the runner to listen 
 to launch the runner to accept jobs to the self-hosted runner.
 
 ## Tasks
-- [] Include more pages
+- [ ] Include more pages
 - [x] Add complexity to the helm chart
   
